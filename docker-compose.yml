@@ -1,0 +1,75 @@
+version: '3.8'
+services:
+  tor1:
+    image: tor-ncat:v1
+    container_name: tor1
+    volumes:
+      - ./torrc1:/etc/tor/torrc
+      - ./stress-test.sh:/opt/stress-test.sh
+    networks:
+      - tor_net1
+    deploy:
+      resources:
+        limits:
+          cpus: '0.6'
+          memory: 256M
+    restart: always
+    entrypoint: ["bash", "/opt/stress-test.sh"]
+
+  tor2:
+    image: tor-ncat:v1
+    container_name: tor2
+    volumes:
+      - ./torrc1:/etc/tor/torrc
+      - ./stress-test.sh:/opt/stress-test.sh
+    networks:
+      - tor_net2
+    deploy:
+      resources:
+        limits:
+          cpus: '0.6'
+          memory: 256M
+    restart: always
+    entrypoint: ["bash", "/opt/stress-test.sh"]
+
+  tor3:
+    image: tor-ncat:v1
+    container_name: tor3
+    volumes:
+      - ./torrc1:/etc/tor/torrc
+      - ./stress-test.sh:/opt/stress-test.sh
+    networks:
+      - tor_net3
+    deploy:
+      resources:
+        limits:
+          cpus: '0.6'
+          memory: 256M
+    restart: always
+    entrypoint: ["bash", "/opt/stress-test.sh"]
+
+  tor4:
+    image: tor-ncat:v1
+    container_name: tor4
+    volumes:
+      - ./torrc1:/etc/tor/torrc
+      - ./stress-test.sh:/opt/stress-test.sh
+    networks:
+      - tor_net4
+    deploy:
+      resources:
+        limits:
+          cpus: '0.6'
+          memory: 256M
+    restart: always
+    entrypoint: ["bash", "/opt/stress-test.sh"]
+
+networks:
+  tor_net1:
+    driver: bridge
+  tor_net2:
+    driver: bridge
+  tor_net3:
+    driver: bridge
+  tor_net4:
+    driver: bridge

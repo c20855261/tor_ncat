@@ -1,0 +1,11 @@
+SOCKSPort 9050
+ControlPort 9051
+CookieAuthentication 0
+# ExitNodes {hk},{tw}
+# StrictNodes 1
+DataDirectory /var/lib/tor/tor1
+MaxCircuitDirtiness 30
+NewCircuitPeriod 15
+CircuitBuildTimeout 30
+LearnCircuitBuildTimeout 0
+NumEntryGuards 6
