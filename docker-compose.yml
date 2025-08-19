@@ -6,6 +6,7 @@ services:
     volumes:
       - ./torrc1:/etc/tor/torrc
       - ./stress-test.sh:/opt/stress-test.sh
+      - ./proxychains4.conf:/etc/proxychains4.conf
     networks:
       - tor_net1
     deploy:
@@ -22,6 +23,7 @@ services:
     volumes:
       - ./torrc1:/etc/tor/torrc
       - ./stress-test.sh:/opt/stress-test.sh
+      - ./proxychains4.conf:/etc/proxychains4.conf
     networks:
       - tor_net2
     deploy:
@@ -38,6 +40,7 @@ services:
     volumes:
       - ./torrc1:/etc/tor/torrc
       - ./stress-test.sh:/opt/stress-test.sh
+      - ./proxychains4.conf:/etc/proxychains4.conf
     networks:
       - tor_net3
     deploy:
@@ -54,8 +57,349 @@ services:
     volumes:
       - ./torrc1:/etc/tor/torrc
       - ./stress-test.sh:/opt/stress-test.sh
+      - ./proxychains4.conf:/etc/proxychains4.conf
     networks:
       - tor_net4
+    deploy:
+      resources:
+        limits:
+          cpus: '0.6'
+          memory: 256M
+    restart: always
+    entrypoint: ["bash", "/opt/stress-test.sh"]
+
+  tor5:
+    image: tor-ncat:v1
+    container_name: tor5
+    volumes:
+      - ./torrc1:/etc/tor/torrc
+      - ./stress-test.sh:/opt/stress-test.sh
+      - ./proxychains4.conf:/etc/proxychains4.conf
+    networks:
+      - tor_net5
+    deploy:
+      resources:
+        limits:
+          cpus: '0.6'
+          memory: 256M
+    restart: always
+    entrypoint: ["bash", "/opt/stress-test.sh"]
+
+  tor6:
+    image: tor-ncat:v1
+    container_name: tor6
+    volumes:
+      - ./torrc1:/etc/tor/torrc
+      - ./stress-test.sh:/opt/stress-test.sh
+      - ./proxychains4.conf:/etc/proxychains4.conf
+    networks:
+      - tor_net6
+    deploy:
+      resources:
+        limits:
+          cpus: '0.6'
+          memory: 256M
+    restart: always
+    entrypoint: ["bash", "/opt/stress-test.sh"]
+
+  tor7:
+    image: tor-ncat:v1
+    container_name: tor7
+    volumes:
+      - ./torrc1:/etc/tor/torrc
+      - ./stress-test.sh:/opt/stress-test.sh
+      - ./proxychains4.conf:/etc/proxychains4.conf
+    networks:
+      - tor_net7
+    deploy:
+      resources:
+        limits:
+          cpus: '0.6'
+          memory: 256M
+    restart: always
+    entrypoint: ["bash", "/opt/stress-test.sh"]
+
+  tor8:
+    image: tor-ncat:v1
+    container_name: tor8
+    volumes:
+      - ./torrc1:/etc/tor/torrc
+      - ./stress-test.sh:/opt/stress-test.sh
+      - ./proxychains4.conf:/etc/proxychains4.conf
+    networks:
+      - tor_net8
+    deploy:
+      resources:
+        limits:
+          cpus: '0.6'
+          memory: 256M
+    restart: always
+    entrypoint: ["bash", "/opt/stress-test.sh"]
+
+  tor9:
+    image: tor-ncat:v1
+    container_name: tor9
+    volumes:
+      - ./torrc1:/etc/tor/torrc
+      - ./stress-test.sh:/opt/stress-test.sh
+      - ./proxychains4.conf:/etc/proxychains4.conf
+    networks:
+      - tor_net9
+    deploy:
+      resources:
+        limits:
+          cpus: '0.6'
+          memory: 256M
+    restart: always
+    entrypoint: ["bash", "/opt/stress-test.sh"]
+
+  tor10:
+    image: tor-ncat:v1
+    container_name: tor10
+    volumes:
+      - ./torrc1:/etc/tor/torrc
+      - ./stress-test.sh:/opt/stress-test.sh
+      - ./proxychains4.conf:/etc/proxychains4.conf
+    networks:
+      - tor_net10
+    deploy:
+      resources:
+        limits:
+          cpus: '0.6'
+          memory: 256M
+    restart: always
+    entrypoint: ["bash", "/opt/stress-test.sh"]
+
+  tor11:
+    image: tor-ncat:v1
+    container_name: tor11
+    volumes:
+      - ./torrc1:/etc/tor/torrc
+      - ./stress-test.sh:/opt/stress-test.sh
+      - ./proxychains4.conf:/etc/proxychains4.conf
+    networks:
+      - tor_net11
+    deploy:
+      resources:
+        limits:
+          cpus: '0.6'
+          memory: 256M
+    restart: always
+    entrypoint: ["bash", "/opt/stress-test.sh"]
+
+  tor12:
+    image: tor-ncat:v1
+    container_name: tor12
+    volumes:
+      - ./torrc1:/etc/tor/torrc
+      - ./stress-test.sh:/opt/stress-test.sh
+      - ./proxychains4.conf:/etc/proxychains4.conf
+    networks:
+      - tor_net12
+    deploy:
+      resources:
+        limits:
+          cpus: '0.6'
+          memory: 256M
+    restart: always
+    entrypoint: ["bash", "/opt/stress-test.sh"]
+
+  tor13:
+    image: tor-ncat:v1
+    container_name: tor13
+    volumes:
+      - ./torrc1:/etc/tor/torrc
+      - ./stress-test.sh:/opt/stress-test.sh
+      - ./proxychains4.conf:/etc/proxychains4.conf
+    networks:
+      - tor_net13
+    deploy:
+      resources:
+        limits:
+          cpus: '0.6'
+          memory: 256M
+    restart: always
+    entrypoint: ["bash", "/opt/stress-test.sh"]
+
+  tor14:
+    image: tor-ncat:v1
+    container_name: tor14
+    volumes:
+      - ./torrc1:/etc/tor/torrc
+      - ./stress-test.sh:/opt/stress-test.sh
+      - ./proxychains4.conf:/etc/proxychains4.conf
+    networks:
+      - tor_net14
+    deploy:
+      resources:
+        limits:
+          cpus: '0.6'
+          memory: 256M
+    restart: always
+    entrypoint: ["bash", "/opt/stress-test.sh"]
+
+  tor15:
+    image: tor-ncat:v1
+    container_name: tor15
+    volumes:
+      - ./torrc1:/etc/tor/torrc
+      - ./stress-test.sh:/opt/stress-test.sh
+      - ./proxychains4.conf:/etc/proxychains4.conf
+    networks:
+      - tor_net15
+    deploy:
+      resources:
+        limits:
+          cpus: '0.6'
+          memory: 256M
+    restart: always
+    entrypoint: ["bash", "/opt/stress-test.sh"]
+
+  tor16:
+    image: tor-ncat:v1
+    container_name: tor16
+    volumes:
+      - ./torrc1:/etc/tor/torrc
+      - ./stress-test.sh:/opt/stress-test.sh
+      - ./proxychains4.conf:/etc/proxychains4.conf
+    networks:
+      - tor_net16
+    deploy:
+      resources:
+        limits:
+          cpus: '0.6'
+          memory: 256M
+    restart: always
+    entrypoint: ["bash", "/opt/stress-test.sh"]
+
+  tor17:
+    image: tor-ncat:v1
+    container_name: tor17
+    volumes:
+      - ./torrc1:/etc/tor/torrc
+      - ./stress-test.sh:/opt/stress-test.sh
+      - ./proxychains4.conf:/etc/proxychains4.conf
+    networks:
+      - tor_net17
+    deploy:
+      resources:
+        limits:
+          cpus: '0.6'
+          memory: 256M
+    restart: always
+    entrypoint: ["bash", "/opt/stress-test.sh"]
+
+  tor18:
+    image: tor-ncat:v1
+    container_name: tor18
+    volumes:
+      - ./torrc1:/etc/tor/torrc
+      - ./stress-test.sh:/opt/stress-test.sh
+      - ./proxychains4.conf:/etc/proxychains4.conf
+    networks:
+      - tor_net18
+    deploy:
+      resources:
+        limits:
+          cpus: '0.6'
+          memory: 256M
+    restart: always
+    entrypoint: ["bash", "/opt/stress-test.sh"]
+
+  tor19:
+    image: tor-ncat:v1
+    container_name: tor19
+    volumes:
+      - ./torrc1:/etc/tor/torrc
+      - ./stress-test.sh:/opt/stress-test.sh
+      - ./proxychains4.conf:/etc/proxychains4.conf
+    networks:
+      - tor_net19
+    deploy:
+      resources:
+        limits:
+          cpus: '0.6'
+          memory: 256M
+    restart: always
+    entrypoint: ["bash", "/opt/stress-test.sh"]
+
+  tor20:
+    image: tor-ncat:v1
+    container_name: tor20
+    volumes:
+      - ./torrc1:/etc/tor/torrc
+      - ./stress-test.sh:/opt/stress-test.sh
+      - ./proxychains4.conf:/etc/proxychains4.conf
+    networks:
+      - tor_net20
+    deploy:
+      resources:
+        limits:
+          cpus: '0.6'
+          memory: 256M
+    restart: always
+    entrypoint: ["bash", "/opt/stress-test.sh"]
+
+  tor21:
+    image: tor-ncat:v1
+    container_name: tor21
+    volumes:
+      - ./torrc1:/etc/tor/torrc
+      - ./stress-test.sh:/opt/stress-test.sh
+      - ./proxychains4.conf:/etc/proxychains4.conf
+    networks:
+      - tor_net21
+    deploy:
+      resources:
+        limits:
+          cpus: '0.6'
+          memory: 256M
+    restart: always
+    entrypoint: ["bash", "/opt/stress-test.sh"]
+
+  tor22:
+    image: tor-ncat:v1
+    container_name: tor22
+    volumes:
+      - ./torrc1:/etc/tor/torrc
+      - ./stress-test.sh:/opt/stress-test.sh
+      - ./proxychains4.conf:/etc/proxychains4.conf
+    networks:
+      - tor_net22
+    deploy:
+      resources:
+        limits:
+          cpus: '0.6'
+          memory: 256M
+    restart: always
+    entrypoint: ["bash", "/opt/stress-test.sh"]
+
+  tor23:
+    image: tor-ncat:v1
+    container_name: tor23
+    volumes:
+      - ./torrc1:/etc/tor/torrc
+      - ./stress-test.sh:/opt/stress-test.sh
+      - ./proxychains4.conf:/etc/proxychains4.conf
+    networks:
+      - tor_net23
+    deploy:
+      resources:
+        limits:
+          cpus: '0.6'
+          memory: 256M
+    restart: always
+    entrypoint: ["bash", "/opt/stress-test.sh"]
+
+  tor24:
+    image: tor-ncat:v1
+    container_name: tor24
+    volumes:
+      - ./torrc1:/etc/tor/torrc
+      - ./stress-test.sh:/opt/stress-test.sh
+      - ./proxychains4.conf:/etc/proxychains4.conf
+    networks:
+      - tor_net24
     deploy:
       resources:
         limits:
@@ -67,9 +411,121 @@ services:
 networks:
   tor_net1:
     driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.1.0/28
   tor_net2:
     driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.2.0/28
   tor_net3:
     driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.3.0/28
   tor_net4:
     driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.4.0/28
+  tor_net5:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.5.0/28
+  tor_net6:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.6.0/28
+  tor_net7:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.7.0/28
+  tor_net8:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.8.0/28
+  tor_net9:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.9.0/28
+  tor_net10:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.10.0/28
+  tor_net11:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.11.0/28
+  tor_net12:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.12.0/28
+  tor_net13:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.13.0/28
+  tor_net14:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.14.0/28
+  tor_net15:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.15.0/28
+  tor_net16:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.16.0/28
+  tor_net17:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.17.0/28
+  tor_net18:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.18.0/28
+  tor_net19:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.19.0/28
+  tor_net20:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.20.0/28
+  tor_net21:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.21.0/28
+  tor_net22:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.22.0/28
+  tor_net23:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.23.0/28
+  tor_net24:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.24.0/28

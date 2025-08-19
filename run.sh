@@ -52,9 +52,13 @@ EOF
 for ((i=0; i<$NUM_CONTAINERS; i++)); do
   IDX=$((BASE_IDX + i))
   NET_NAME="tor_net$IDX"
+  NET_SUBNET="172.28.$IDX.0/28"
 cat >> docker-compose.yml <<EOF
   $NET_NAME:
     driver: bridge
+    ipam:
+      config:
+        - subnet: $NET_SUBNET
 EOF
 done
 

