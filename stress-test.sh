@@ -6,6 +6,7 @@ DURATION=600
 MAX_PARALLEL=120
 TORRC="/etc/tor/torrc"
 DATA_DIR="/var/lib/tor/tor1"
+LOG_FILE="/var/log/tor/notices.log"
 
 SUCCESS_COUNT=0
 FAIL_COUNT=0
@@ -18,22 +19,38 @@ cat <<EOF > $TORRC
 SOCKSPort 9050
 ControlPort 9051
 CookieAuthentication 0
-# ExitNodes {hk},{tw}
-# StrictNodes 1
 DataDirectory $DATA_DIR
 MaxCircuitDirtiness 30
 NewCircuitPeriod 15
 CircuitBuildTimeout 30
 LearnCircuitBuildTimeout 0
 NumEntryGuards 6
+Log notice file $LOG_FILE
 EOF
 }
 
+# 啟動tor
 start_tor() {
+  rm -f $LOG_FILE
   gen_torrc
   tor -f $TORRC &
   TOR_PID=$!
-  sleep 40
+}
+
+# 等待 tor 完成 bootstrapped 100%
+wait_for_bootstrap() {
+  local max_wait=50  # 最長等多少秒
+  local elapsed=0
+  while [ $elapsed -lt $max_wait ]; do
+    sleep 5
+    elapsed=$((elapsed+5))
+    if [ -f "$LOG_FILE" ] && grep -q "Bootstrapped 100% (done)" "$LOG_FILE"; then
+      log "Tor Bootstrapped 成功: $elapsed 秒"
+      return 0
+    fi
+    log "Tor Bootstrapped 未完成 ($elapsed/$max_wait 秒)"
+  done
+  return 1
 }
 
 # 強制Tor換線（NEWNYM）
@@ -43,26 +60,47 @@ force_newnym() {
   sleep 10
 }
 
-# 取得出口IP，未知自動換線/重啟，容錯最多3次，失敗則中斷
+# 啟動tor並驗證bootstrapped，失敗重啟/換線，超過次數中斷
+ensure_tor_ready() {
+  local attempts=0
+  local max_attempts=3
+  while [ $attempts -lt $max_attempts ]; do
+    start_tor
+    if wait_for_bootstrap; then
+      log "Tor啟動並完成Bootstrapped"
+      return 0
+    else
+      log "Tor Bootstrapped 超時，嘗試換線並重啟 (第$((attempts+1))次)"
+      force_newnym
+      kill $TOR_PID 2>/dev/null
+      sleep 2
+      ((attempts++))
+    fi
+  done
+  log "Tor連續 $max_attempts 次都無法完成Bootstrapped，腳本中斷"
+  exit 1
+}
+
 get_valid_exit_ip() {
   local attempts=0
   local max_attempts=3
-  local ip="未知"
+  local ip=""
+  local ip_regex_ipv4="^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$"
+
   while [ $attempts -lt $max_attempts ]; do
-    ip=$(timeout 20 proxychains curl -s --max-time 15 https://api.ipify.org 2>/dev/null || echo "未知")
-    if [ "$ip" != "未知" ] && [ -n "$ip" ]; then
+    ip=$(timeout 20 proxychains curl -s --max-time 15 https://api.ipify.org 2>/dev/null || echo "")
+    if [[ "$ip" =~ $ip_regex_ipv4 ]]; then
       log "Tor出口IP: $ip"
       echo "$ip"
       return 0
     fi
-    log "Tor出口IP: 未知，第 $((attempts + 1)) 次重試"
+    log "Tor出口IP異常（值:'$ip'），第 $((attempts + 1)) 次重試"
     force_newnym
     kill $TOR_PID 2>/dev/null
-    sleep 2
-    start_tor
+    ensure_tor_ready
     ((attempts++))
   done
-  log "Tor出口IP連續 $max_attempts 次都未知，腳本中斷"
+  log "Tor出口IP連續 $max_attempts 次都異常，腳本中斷"
   exit 1
 }
 
@@ -70,7 +108,6 @@ do_tcp_test() {
   local id=$1
   dd if=/dev/urandom bs=1024 count=1 2>/dev/null | \
   timeout 8 proxychains ncat -w 5 $TARGET_IP $PORT >/dev/null 2>&1
-
   if [ $? -eq 0 ]; then
     ((SUCCESS_COUNT++))
   else
@@ -80,7 +117,7 @@ do_tcp_test() {
 }
 
 # 主流程
-start_tor
+ensure_tor_ready
 EXIT_IP=$(get_valid_exit_ip)
 log "Tor出口IP: $EXIT_IP"
 
