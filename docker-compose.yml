@@ -374,40 +374,6 @@ services:
     restart: always
     entrypoint: ["bash", "/opt/stress-test.sh"]
 
-  tor23:
-    image: tor-ncat:v1
-    container_name: tor23
-    volumes:
-      - ./torrc1:/etc/tor/torrc
-      - ./stress-test.sh:/opt/stress-test.sh
-      - ./proxychains4.conf:/etc/proxychains4.conf
-    networks:
-      - tor_net23
-    deploy:
-      resources:
-        limits:
-          cpus: '0.6'
-          memory: 256M
-    restart: always
-    entrypoint: ["bash", "/opt/stress-test.sh"]
-
-  tor24:
-    image: tor-ncat:v1
-    container_name: tor24
-    volumes:
-      - ./torrc1:/etc/tor/torrc
-      - ./stress-test.sh:/opt/stress-test.sh
-      - ./proxychains4.conf:/etc/proxychains4.conf
-    networks:
-      - tor_net24
-    deploy:
-      resources:
-        limits:
-          cpus: '0.6'
-          memory: 256M
-    restart: always
-    entrypoint: ["bash", "/opt/stress-test.sh"]
-
 networks:
   tor_net1:
     driver: bridge
@@ -519,13 +485,3 @@ networks:
     ipam:
       config:
         - subnet: 172.28.22.0/28
-  tor_net23:
-    driver: bridge
-    ipam:
-      config:
-        - subnet: 172.28.23.0/28
-  tor_net24:
-    driver: bridge
-    ipam:
-      config:
-        - subnet: 172.28.24.0/28
